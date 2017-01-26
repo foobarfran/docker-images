@@ -4,7 +4,7 @@ MAINTAINER <franco.m87@gmail.com>
 RUN apt-get update && apt-get install -y \
         wget \
         unzip \
-        g++  \
+        g++ \
         libpcre3 \
         libpcre3-dev \
         zlib1g-dev \
@@ -37,6 +37,11 @@ RUN ./configure --add-module=/ngx_pagespeed-${NPS_VERSION} ${PS_NGX_EXTRA_FLAGS}
     make && \
     make install
 
+# Clean
+WORKDIR /
+RUN rm v${NPS_VERSION}.zip nginx-${NGINX_VERSION}.tar.gz &&  \
+    rm -rf nginx-${NGINX_VERSION} ngx_pagespeed-${NPS_VERSION}
+
 # Run nginx
 EXPOSE 80 443
-CMD ["objs/nginx", "-g", "daemon off;"]
+CMD ["usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
