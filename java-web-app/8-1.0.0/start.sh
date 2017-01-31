@@ -35,7 +35,7 @@ fi
 
 # Starting application
 trap 'kill -TERM $PID' TERM INT
-java $JVMARGS -cp "${JAR}:${APP_PATH}/common:${APP_PATH}/${ENV}" -server -Dspring.profiles.active=${ENV} -Dserver.port=8080 ${MAINCLASS}
+java $JVMARGS -cp "${JAR}:${APP_PATH}/common:${APP_PATH}/${ENV}" -server -Dspring.profiles.active=${ENV} -Dserver.port=8080 ${MAINCLASS} &
 PID=$!
 wait $PID
 trap - TERM INT
